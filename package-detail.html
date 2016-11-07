@@ -153,7 +153,7 @@
                                         </div>	
                                         <div class="f-wrap">
                                             <h5>Duration of trip:</h5>
-                                            <div class="flight-info">2 hours 00 minutes </div>
+                                            <div class="flight-info-Arr-dur" style="text-align:center"><!--2 hours 00 minutes --></div>
                                         </div>
                                         <span class="price flight-info-price">Price per passenger  <!--<em>&euro; 50</em>--> </span>
                                         <div class="description">
@@ -184,7 +184,7 @@
                                         </div>	
                                         <div class="f-wrap">
                                             <h5>Duration of trip:</h5>
-                                            <div class="flight-info">2 hours 00 minutes </div>
+                                            <div class="flight-info-Dep-dur" style="text-align:center"><!--2 hours 00 minutes --></div>
                                         </div>
                                         <span class="price flight-info-price">Price per passenger  <!--<em>&euro; 50</em>--> </span>
                                         <div class="description">
@@ -208,7 +208,7 @@
                                             <i class="material-icons">&#xE838;</i>
                                         </span>
                                     </h3>
-                                    <span class="address">London  •  <a href="#">Show on map</a></span>
+                                    <span class="address Hoteladdr"><!--London  • <a href="#">Show on map</a>--></span>
                                     <span class="rating"> 8 /10</span>
                                     <span class="price Hotelprice"><!--Price per night from  <em>&euro; 50</em>--> </span>
                                     <div class="description hoteldesc">
@@ -593,9 +593,11 @@ $.ajax({
 		$('.flight-info-ret-Arr').append(depdepDate+"<br/> <strong>"+a.FlightDetails.DepartAirportLocationCode+"</strong>");
 		$('.flight-info-price').append('<em>&euro; '+a.FlightDetails.TotalFareAmount+'</em>');
 		$('.Hotelname').text(a.RoomDetails.Code);
-		$('.Hotelprice').append('Price per night from  <em>&euro; '+a.RoomDetails.Price_Person_Day+'</em>');
-		$('.hoteldesc').append(a.RoomDetails.RoomLongDescription+'<a href="hotel.html">More info</a>');		
-		
+		$('.Hotelprice').append('Price per night from  <em>&euro; '+a.Price_Person_Day+'</em>');
+		$('.hoteldesc').append(a.RoomDetails.RoomLongDescription+'<a href="hotel.html">More info</a>');
+		$('.Hoteladdr').append(a.RoomDetails.LocationCode +' • <a href="#">Show on map</a>');		
+		$('.flight-info-Arr-dur').append(a.FlightDetails.JourneyDuration + ' Minutes');
+		$('.flight-info-Dep-dur').append(a.FlightDetails.JourneyDuration_RET + ' Minutes');
 		},
 		error: function (xhr, status, error)
 		{$('body').find('.loading').remove();
@@ -617,34 +619,16 @@ $.ajax({
 			else
 			return month;
 		}
-/*var a={"sValidPackage":"SUCCESS","PackageCode":"MGMOVB021","PackageName":"Slice Of Paradise on the Beach @ OVBC","ValidFrom":"2016-11-11T00:00:00","ValidTo":"2016-11-18T00:00:00","MinDays":"7","MinPerson":"2","MinAdult":"2","MinChild":"0","MinInfant":"0","Price_Person_Day":"53.0000","LocationFrom":"LON","LocationTo":"FAO","AvailablePackages":"5","RoomDetails":{"Code":"OVBC","CompanyID":"1028","CategoryID":"84","CategoryCode":"T1C","MaxPerson":"4","RoomImage":"/Images/1028_84.jpg","RoomRate":"106","RoomDescription":"Deluxe One Bedroom Sea-or Pool view Apartment","RoomLongDescription":"Each apartment has a large double bedroom equipped with double or twin beds, comfy sofa bed in the room, living and dining area. All furnished to a high standard including flat screen TV’s, fitted kitchens and hair dryer. Arrive, unpack then enjoy.","CategoryDetails":"Maximum 2 Persons per apartment in existing beds:Rates include tax:Rate per apartment in Euro (EUR)","HotelImage":"/Images/1028.jpg","StarRating":"5","Latitude":"37.08578","Longitude":"-8.23696","HotelURL":"https://www.muthuhotels.com/hotels/albufeira-portugal/oura-view-beach-club/about","AvailableRooms":"5","LocationCode":"FAO","RoomSearchID":"827F46A1-60A7-44A4-9C7F-B8ED675A6AB9"},"FlightDetails":{"PackageSessionID":"b6582513-b333-483b-bb3d-93cbe17db4a6","ArrivalAirportLocationCode":"FAO","ArrivalDatetime":"2016-11-11T09:20:00","DepartAirportLocationCode":"LGW","DepartDatetime":"2016-11-11T06:30:00","FlightNumber":"8913","JourneyDuration":170,"ResBookDesigCode":null,"OACode":"U2","OAEquipment":"","OAFlightNumber":null,"SeatsRemaining":0,"NumberofStops":0,"MarriageGroup":null,"Eticket":false,"CabinClassCode":null,"MealCode":null,"SeatsRemainingBelowMinimum":false,"ArrivalAirportLocationCode_RET":"LGW","ArrivalDatetime_RET":"2016-11-18T23:35:00","DepartAirportLocationCode_RET":"FAO","DepartDatetime_RET":"2016-11-18T20:45:00","FlightNumber_RET":"8918","JourneyDuration_RET":170,"ResBookDesigCode_RET":null,"OACode_RET":"U2","OAEquipment_RET":"","OAFlightNumber_RET":null,"SeatsRemaining_RET":0,"NumberofStops_RET":0,"MarriageGroup_RET":null,"Eticket_RET":false,"CabinClassCode_RET":null,"MealCode_RET":null,"SeatsRemainingBelowMinimum_RET":false,"FareSourceCode":"ODAwMDAxJlRGJlRGJjI4NTFmODg5LTdjOTAtNGQ5ZC05YWNlLWZjYTU5NmQ3ZmExZSZURiY=","BaseFareAmount":"168.96","BaseFareCurr":"GBP","TotalTaxAmount":"31.43","TotalTaxCurr":"EUR","TotalFareAmount":"220.56","TotalFareCurr":"EUR","EquivFareAmount":"189.13","EquivFareCurr":"EUR","FareType":"WebFare","IsPassportMandatory":true,"ValidatingAirlineCode":null,"DivideInPartyIndicator":false}};
-			$(document).load($('.midcontent').find('p').eq(0).text(a.PackageName));
-			//console.log("https://mgmpackages.azurewebsites.net/mgmpackages/"+a.RoomImage);
-			//imagelink="https://mgmpackages.azurewebsites.net/mgmpackages/"+a.RoomImage;
-			$('.pkimg').attr('src','https://mgmpackages.azurewebsites.net/mgmpackages/'+a.RoomDetails.RoomImage);
-			$('.Htimg').attr('src','https://mgmpackages.azurewebsites.net/mgmpackages/'+a.RoomDetails.HotelImage);
-			$('.flight-info-Dep').append(a.FlightDetails.ArrivalDatetime+"<br/> <strong>"+a.FlightDetails.ArrivalAirportLocationCode+"</strong>");
-			$('.flight-info-Arr').append(a.FlightDetails.DepartDatetime+"<br/> <strong>"+a.FlightDetails.DepartAirportLocationCode+"</strong>");
-			$('.flight-info-price').append('<em>&euro; '+a.FlightDetails.TotalFareAmount+'</em>');
-			$('.Hotelname').text(a.RoomDetails.Code);
-			$('.Hotelprice').append('Price per night from  <em>&euro; '+a.RoomDetails.RoomRate+'</em>');
-			$('.hoteldesc').append(a.RoomDetails.RoomLongDescription+'<a href="hotel.html">More info</a>');
-});			*/
-			
-/*$(function () {
-var name = GetParameterValues('packagecode');
-$('#spn_UserName').html('<strong>' + name + '</strong>');
-//$('#spn_UserId').html('<strong>' + id + '</strong>');
-});*/
-function GetParameterValues(param) {
-var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-for (var i = 0; i < url.length; i++) {
-var urlparam = url[i].split('=');
-if (urlparam[0] == param) {
-return urlparam[1];
-}
-}
-}
+
+		function GetParameterValues(param) {
+		var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+		for (var i = 0; i < url.length; i++) {
+		var urlparam = url[i].split('=');
+		if (urlparam[0] == param) {
+		return urlparam[1];
+		}
+		}
+		}
 </script>
 	
 	</body>
